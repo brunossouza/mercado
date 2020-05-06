@@ -12,9 +12,10 @@ class Item {
   Item({
     @required this.nome,
     @required this.quantidade,
-    this.thumbnail =
-        'https://upload.wikimedia.org/wikipedia/commons/3/39/MERCADO.png',
+    this.thumbnail = 'assets/icons/icon.png',
     this.preco = 0.0,
     this.tipo = TipoDeunidade.UN,
   });
 }
+
+// this.thumbnail = 'https://upload.wikimedia.org/wikipedia/commons/3/39/MERCADO.png',
