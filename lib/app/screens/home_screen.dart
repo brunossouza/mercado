@@ -16,9 +16,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mercado: R\$ ${total.toStringAsPrecision(2)}'),
+        title: Text('Lista: Month'),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.add), onPressed: () {}),
+        ],
       ),
-      body: ListItens(),
+      body: ListProdutos(),
     );
   }
 }

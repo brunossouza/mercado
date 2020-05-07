@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 
 enum TipoDeunidade { UN, KG }
 
-class Item {
+class Produto {
   String thumbnail;
   String nome;
   double quantidade;
   double preco;
   TipoDeunidade tipo;
 
-  Item({
+  Produto({
     @required this.nome,
     @required this.quantidade,
     this.thumbnail = 'assets/icons/icon.png',

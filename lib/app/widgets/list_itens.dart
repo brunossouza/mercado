@@ -1,111 +1,163 @@
 import 'package:flutter/material.dart';
 
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../store/data.dart';
-import '../models/item.dart';
+import '../models/Produto.dart';
 
-class ListItens extends StatefulWidget {
+class ListProdutos extends StatefulWidget {
   @override
-  _ListItensState createState() => _ListItensState();
+  _ListProdutosState createState() => _ListProdutosState();
 }
 
-class _ListItensState extends State<ListItens> {
-  var itens = ListaDeCompras().itens;
+class _ListProdutosState extends State<ListProdutos> {
+  var produtos = ListaDeCompras().produtos;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView.builder(
-        itemCount: itens.length,
-        itemBuilder: (cxt, ind) {
-          return Dismissible(
-            background: Container(
-              color: Colors.green,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      FontAwesomeIcons.solidCheckCircle,
-                      color: Colors.black,
-                      size: 35,
-                    ),
-                  ),
-                ],
+    return Column(
+      children: <Widget>[
+        Container(
+          height: 85.0,
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                width: 4.0,
+                color: Colors.grey[500],
               ),
             ),
-            secondaryBackground: Container(
-              color: Colors.red,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.delete,
-                      color: Colors.black,
-                      size: 35,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            key: UniqueKey(),
-            onDismissed: (direction) {
-              if (direction == DismissDirection.startToEnd) {
-                print('esquerda direita');
-                Scaffold.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('salvo'),
-                    duration: Duration(seconds: 3),
-                    action: SnackBarAction(label: "Desfazer", onPressed: () {}),
-                  ),
-                );
-              } else if (direction == DismissDirection.endToStart) {
-                print('direita esquerda');
-                Scaffold.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('deletado'),
-                    duration: Duration(seconds: 3),
-                  ),
-                );
-              } else {
-                print(direction);
-              }
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    width: 2.0,
-                    color: Colors.grey[300],
-                  ),
+          ),
+          child: Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Image.asset(
+                  'assets/icons/caixa.png',
+                  width: 60,
                 ),
               ),
-              child: ListTile(
-                contentPadding: const EdgeInsets.symmetric(
-                    vertical: 10.0, horizontal: 10.0),
-                leading: Image.asset(itens[ind].thumbnail),
-                title: Text(
-                  itens[ind].nome,
+              Text(
+                'Total do carrinho:',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 23.0,
+                ),
+              ),
+              Expanded(child: SizedBox()),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  'R\$ 10.525,32',
                   style: TextStyle(
                     fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                trailing: Text(
-                  '${itens[ind].quantidade.toStringAsFixed(2)} ${itens[ind].tipo == TipoDeunidade.KG ? 'kg' : 'unidade(s)'}',
-                  style: TextStyle(
-                    fontSize: 18.0,
                   ),
                 ),
               ),
-            ),
-          );
-        },
-      ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: ListView.builder(
+            itemCount: produtos.length,
+            itemBuilder: (cxt, ind) {
+              return Dismissible(
+                background: Container(
+                  color: Color(0xFF35C632),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.done_outline,
+                          color: Colors.black,
+                          size: 35,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                secondaryBackground: Container(
+                  color: Color(0xFFD92929),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.clear,
+                          color: Colors.black,
+                          size: 35,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                key: UniqueKey(),
+                onDismissed: (direction) {
+                  if (direction == DismissDirection.startToEnd) {
+                    print('esquerda direita');
+                  } else if (direction == DismissDirection.endToStart) {
+                    print('direita esquerda');
+                    Scaffold.of(context).showSnackBar(
+                      SnackBar(
+                        content: Row(
+                          children: <Widget>[
+                            Icon(
+                              Icons.clear,
+                              color: Colors.red,
+                              size: 30,
+                            ),
+                            Text(produtos[ind].nome)
+                          ],
+                        ),
+                        duration: Duration(seconds: 3),
+                        action: SnackBarAction(
+                            label: "Desfazer",
+                            textColor: Color(0xFFDEE12F),
+                            onPressed: () {}),
+                      ),
+                    );
+                  } else {
+                    print(direction);
+                  }
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(
+                        width: 2.0,
+                        color: Colors.grey[400],
+                      ),
+                      bottom: BorderSide(
+                        width: 2.0,
+                        color: Colors.grey[400],
+                      ),
+                    ),
+                  ),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 10.0),
+                    leading: Image.asset(produtos[ind].thumbnail),
+                    title: Text(
+                      produtos[ind].nome,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    trailing: Text(
+                      '${produtos[ind].quantidade.toStringAsFixed(2)} ${produtos[ind].tipo == TipoDeunidade.KG ? 'kg' : 'unidade(s)'}',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }
