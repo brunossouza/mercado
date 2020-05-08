@@ -1,6 +1,6 @@
-import '../models/Produto.dart';
+import '../models/produto.dart';
 
-class ListaDeCompras {
+class DataProdutos {
   final List<Produto> _produtos = [
     Produto(nome: 'Arroz', quantidade: 5, tipo: TipoDeunidade.KG),
     Produto(nome: 'Feijão', quantidade: 3, tipo: TipoDeunidade.KG),

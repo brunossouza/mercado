@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../store/data.dart';
-import '../models/Produto.dart';
+import '../store/data_produtos.dart';
+import '../models/produto.dart';
 
+//TODO: reutilizar
 class ListProdutos extends StatefulWidget {
   @override
   _ListProdutosState createState() => _ListProdutosState();
 }
 
 class _ListProdutosState extends State<ListProdutos> {
-  var produtos = ListaDeCompras().produtos;
+  var produtos = DataProdutos().produtos;
   @override
   Widget build(BuildContext context) {
     return Column(

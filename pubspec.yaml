@@ -29,6 +29,7 @@ flutter:
     assets:
         - "assets/icons/icon.png"
         - "assets/icons/caixa.png"
+        - "assets/placeholder/mercado.png"
     # fonts:
     #   - family: Schyler
     #     fonts:
